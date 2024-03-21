@@ -18,7 +18,6 @@ def main():
     dir_state = 1
     angle = 90
     
-    # 让舵机复位归中
     Arm.Arm_serial_servo_write6(90, 90, 90, 90, 90, 90, 500)
     time.sleep(1)
 
