@@ -1,0 +1,2 @@
+learn_service:learn_topic
+-DCATKIN_DEVEL_PREFIX=/home/jetson/ros_ws/devel -DCMAKE_INSTALL_PREFIX=/home/jetson/ros_ws/install -G Unix Makefiles

@@ -1,0 +1,8 @@
+prefix=/home/jetson/ros_ws/install
+
+Name: learn_service
+Description: Description of learn_service
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
