@@ -6,7 +6,7 @@ import _thread,time
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Trigger, TriggerResponse
 pubvel = False;
-turtle_vel_pub = rospy.Publisher('/turtle3/cmd_vel', Twist, queue_size=8)
+turtle_vel_pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=8)
 def pubvel_thread():
     while True:
         if pubvel:

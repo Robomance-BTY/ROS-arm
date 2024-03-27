@@ -15,8 +15,9 @@ find_package(catkin REQUIRED COMPONENTS
   turtlesim
 )
 
-add_executable(turtle_velocity_publisher src/turtle_velocity_publisher.cpp)
-target_link_libraries(turtle_velocity_publisher ${catkin_LIBRARIES})
+#Add message_generation to find_package
+add_message_files(FILES Information.msg)
+generate_messages(DEPENDENCIES std_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)

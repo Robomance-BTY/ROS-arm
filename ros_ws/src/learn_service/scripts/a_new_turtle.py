@@ -8,7 +8,7 @@ def turtle_spawn():
     rospy.wait_for_service('/spawn')# Wait/spawn service
     try:
         new_turtle = rospy.ServiceProxy('/spawn', Spawn)
-        response = new_turtle(1.0, 1.0, 0.0, "turtle3")# Enter request data
+        response = new_turtle(2.0, 2.0, 0.0, "turtle2")# Enter request data
         return response.name
     except rospy.ServiceException as e:
         print ("failed to call service : %s")

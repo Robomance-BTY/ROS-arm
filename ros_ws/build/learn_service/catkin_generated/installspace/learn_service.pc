@@ -1,4 +1,4 @@
-prefix=/home/jetson/ros_ws/install
+prefix=/home/jetson/ROS/ros_ws/install
 
 Name: learn_service
 Description: Description of learn_service

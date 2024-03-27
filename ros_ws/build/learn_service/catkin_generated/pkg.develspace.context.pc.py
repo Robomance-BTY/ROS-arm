@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "learn_service"
-PROJECT_SPACE_DIR = "/home/jetson/ros_ws/devel"
+PROJECT_SPACE_DIR = "/home/jetson/ROS/ros_ws/devel"
 PROJECT_VERSION = "0.0.0"

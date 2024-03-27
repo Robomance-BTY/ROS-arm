@@ -1,8 +1,8 @@
-# Install script for directory: /home/jetson/ros_ws/src/learn_topic
+# Install script for directory: /home/jetson/ROS/ros_ws/src/learn_topic
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/jetson/ros_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/jetson/ROS/ros_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,29 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/jetson/ros_ws/build/learn_topic/catkin_generated/installspace/learn_topic.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_topic/msg" TYPE FILE FILES "/home/jetson/ROS/ros_ws/src/learn_topic/msg/Information.msg")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_topic/cmake" TYPE FILE FILES "/home/jetson/ROS/ros_ws/build/learn_topic/catkin_generated/installspace/learn_topic-msg-paths.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/jetson/ROS/ros_ws/build/learn_topic/catkin_generated/installspace/learn_topic.pc")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_topic/cmake" TYPE FILE FILES "/home/jetson/ROS/ros_ws/build/learn_topic/catkin_generated/installspace/learn_topic-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_topic/cmake" TYPE FILE FILES
-    "/home/jetson/ros_ws/build/learn_topic/catkin_generated/installspace/learn_topicConfig.cmake"
-    "/home/jetson/ros_ws/build/learn_topic/catkin_generated/installspace/learn_topicConfig-version.cmake"
+    "/home/jetson/ROS/ros_ws/build/learn_topic/catkin_generated/installspace/learn_topicConfig.cmake"
+    "/home/jetson/ROS/ros_ws/build/learn_topic/catkin_generated/installspace/learn_topicConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_topic" TYPE FILE FILES "/home/jetson/ros_ws/src/learn_topic/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_topic" TYPE FILE FILES "/home/jetson/ROS/ros_ws/src/learn_topic/package.xml")
 endif()
 

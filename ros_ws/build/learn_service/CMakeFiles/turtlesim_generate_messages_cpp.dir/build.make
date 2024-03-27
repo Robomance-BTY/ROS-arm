@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jetson/ros_ws/src
+CMAKE_SOURCE_DIR = /home/jetson/ROS/ros_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jetson/ros_ws/build
+CMAKE_BINARY_DIR = /home/jetson/ROS/ros_ws/build
 
 # Utility rule file for turtlesim_generate_messages_cpp.
 
@@ -63,10 +63,10 @@ learn_service/CMakeFiles/turtlesim_generate_messages_cpp.dir/build: turtlesim_ge
 .PHONY : learn_service/CMakeFiles/turtlesim_generate_messages_cpp.dir/build
 
 learn_service/CMakeFiles/turtlesim_generate_messages_cpp.dir/clean:
-	cd /home/jetson/ros_ws/build/learn_service && $(CMAKE_COMMAND) -P CMakeFiles/turtlesim_generate_messages_cpp.dir/cmake_clean.cmake
+	cd /home/jetson/ROS/ros_ws/build/learn_service && $(CMAKE_COMMAND) -P CMakeFiles/turtlesim_generate_messages_cpp.dir/cmake_clean.cmake
 .PHONY : learn_service/CMakeFiles/turtlesim_generate_messages_cpp.dir/clean
 
 learn_service/CMakeFiles/turtlesim_generate_messages_cpp.dir/depend:
-	cd /home/jetson/ros_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jetson/ros_ws/src /home/jetson/ros_ws/src/learn_service /home/jetson/ros_ws/build /home/jetson/ros_ws/build/learn_service /home/jetson/ros_ws/build/learn_service/CMakeFiles/turtlesim_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/jetson/ROS/ros_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jetson/ROS/ros_ws/src /home/jetson/ROS/ros_ws/src/learn_service /home/jetson/ROS/ros_ws/build /home/jetson/ROS/ros_ws/build/learn_service /home/jetson/ROS/ros_ws/build/learn_service/CMakeFiles/turtlesim_generate_messages_cpp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : learn_service/CMakeFiles/turtlesim_generate_messages_cpp.dir/depend
 

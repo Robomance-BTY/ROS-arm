@@ -1,0 +1,8 @@
+prefix=/home/jetson/ROS/ros_ws/install
+
+Name: learn_action
+Description: Description of learn_action
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

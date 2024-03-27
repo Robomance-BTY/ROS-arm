@@ -1,8 +1,8 @@
-# Install script for directory: /home/jetson/ros_ws/src/learn_service
+# Install script for directory: /home/jetson/ROS/ros_ws/src/learn_service
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/jetson/ros_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/jetson/ROS/ros_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/jetson/ros_ws/build/learn_service/catkin_generated/installspace/learn_service.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/jetson/ROS/ros_ws/build/learn_service/catkin_generated/installspace/learn_service.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_service/cmake" TYPE FILE FILES
-    "/home/jetson/ros_ws/build/learn_service/catkin_generated/installspace/learn_serviceConfig.cmake"
-    "/home/jetson/ros_ws/build/learn_service/catkin_generated/installspace/learn_serviceConfig-version.cmake"
+    "/home/jetson/ROS/ros_ws/build/learn_service/catkin_generated/installspace/learn_serviceConfig.cmake"
+    "/home/jetson/ROS/ros_ws/build/learn_service/catkin_generated/installspace/learn_serviceConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_service" TYPE FILE FILES "/home/jetson/ros_ws/src/learn_service/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learn_service" TYPE FILE FILES "/home/jetson/ROS/ros_ws/src/learn_service/package.xml")
 endif()
 
