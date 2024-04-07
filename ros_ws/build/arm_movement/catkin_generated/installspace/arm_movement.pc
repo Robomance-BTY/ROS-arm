@@ -1,0 +1,8 @@
+prefix=/home/jetson/ROS/ros_ws/install
+
+Name: arm_movement
+Description: Description of arm_movement
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

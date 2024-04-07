@@ -5,6 +5,7 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
+subdirs("arm_movement")
 subdirs("learn_launch")
 subdirs("learn_action")
 subdirs("learn_service")

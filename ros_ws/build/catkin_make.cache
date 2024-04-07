@@ -1,2 +1,2 @@
-learn_action:learn_launch:learn_service:learn_tf:learn_topic
+arm_movement:learn_action:learn_launch:learn_service:learn_tf:learn_topic
 -DCATKIN_DEVEL_PREFIX=/home/jetson/ROS/ros_ws/devel -DCMAKE_INSTALL_PREFIX=/home/jetson/ROS/ros_ws/install -G Unix Makefiles

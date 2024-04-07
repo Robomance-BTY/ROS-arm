@@ -131,6 +131,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/jetson/ROS/ros_ws/build/gtest/cmake_install.cmake")
+  include("/home/jetson/ROS/ros_ws/build/arm_movement/cmake_install.cmake")
   include("/home/jetson/ROS/ros_ws/build/learn_launch/cmake_install.cmake")
   include("/home/jetson/ROS/ros_ws/build/learn_action/cmake_install.cmake")
   include("/home/jetson/ROS/ros_ws/build/learn_service/cmake_install.cmake")
