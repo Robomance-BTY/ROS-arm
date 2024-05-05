@@ -9,15 +9,15 @@ from arm_movement.srv import MoveLinear
 Arm = Arm_Device()
 
 def stretch_arm(arm):
-    arm.Arm_serial_servo_write6(90, 90, 38, 62, 90, 90, 800)
+    arm.Arm_serial_servo_write6(95, 50, 47, 78, 90, 90, 800)
     time.sleep(1)
 
 def hold_book(arm):
-    arm.Arm_serial_servo_write6(90, 90, 38, 62, 90, 174, 800)
+    arm.Arm_serial_servo_write6(95, 50, 47, 78, 90, 180, 800)
     time.sleep(1)
 
 def withdraw(arm):
-    arm.Arm_serial_servo_write6(90, 180, 0, 0, 90, 174, 800)
+    arm.Arm_serial_servo_write6(95, 180, 0, 0, 90, 180, 800)
     time.sleep(1)
 
 def linear_publisher():
@@ -50,8 +50,12 @@ def callback(data):
     else:
         rospy.logwarn("Service call failed. %s", message)
 
+def order_callback(data):
+    callback(data)
+    move_linear_client(data)
+
 def topic_listener():
-    rospy.Subscriber('order', String, callback)
+    rospy.Subscriber('order', String, order_callback)
 
 if __name__ == "__main__":
     try:

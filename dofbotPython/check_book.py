@@ -1,4 +1,3 @@
-# import the necessary packages
 from imutils.video import VideoStream
 from pyzbar import pyzbar
 import argparse
@@ -25,10 +24,10 @@ time.sleep(2.0)
 csv = open(args["output"], "w")
 found = set()
 
-# define the target region (center fifth of the frame horizontally)
+# define the target segment (third segment out of eleven total)
 frame_width = vs.read().shape[1]
-target_left = frame_width // 5
-target_right = target_left * 4
+segment_width = frame_width // 20
+target_segment = 7  # 세그먼트는 0에서 시작하므로, 3번째 세그먼트는 '2'입니다.
 
 # loop over the frames from the video stream
 while True:
@@ -47,23 +46,17 @@ while True:
 
         # calculate the center of the bounding box
         barcode_center_x = x + w // 2
-        barcode_center_y = y + h // 2
-
-        # calculate the distance to the target region
-        distance_to_target = abs(barcode_center_x - (target_right + target_left) // 2)
 
         # calculate which segment the barcode is in
-        segment_width = frame_width // 5
         segment = barcode_center_x // segment_width
 
         # draw the barcode bounding box and data on the frame
-        if barcode.data.decode("utf-8") == "book2" and segment == 2:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)  # Red color for "book2" barcode in the third segment
+        if barcode.data.decode("utf-8") == "book2" and segment == target_segment:
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)  # Red color for "book2" QR code in the target segment
             cv2.putText(frame, "Target reached", (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
         elif barcode.data.decode("utf-8") == "book2":
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Green color for other barcodes
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)  # Green color for other QR codes
             cv2.putText(frame, "Target detected", (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-            print(f"Distance to target: {distance_to_target:.2f}")
 
     # show the output frame
     cv2.imshow("Barcode Scanner", frame)
