@@ -1,0 +1,8 @@
+<launch>
+    <arg name="book_storage"  default="default_value"/> 
+	<node pkg="arm_movement" type="service_client.py" name="service_server">
+        <param name="book_storage" value="$(arg book_storage)"/>    
+    </node>
+    <node pkg="arm_movement" type="dofbot_move.py" name="dofbot"/>
+    <node pkg="book_find" type="find_book_qr.py" name="find_book_action_server"/>
+</launch>

@@ -1,0 +1,2 @@
+set(book_find_MESSAGE_FILES "/home/jetson/ROS/ros_ws/devel/share/book_find/msg/FindBookAction.msg;/home/jetson/ROS/ros_ws/devel/share/book_find/msg/FindBookActionGoal.msg;/home/jetson/ROS/ros_ws/devel/share/book_find/msg/FindBookActionResult.msg;/home/jetson/ROS/ros_ws/devel/share/book_find/msg/FindBookActionFeedback.msg;/home/jetson/ROS/ros_ws/devel/share/book_find/msg/FindBookGoal.msg;/home/jetson/ROS/ros_ws/devel/share/book_find/msg/FindBookResult.msg;/home/jetson/ROS/ros_ws/devel/share/book_find/msg/FindBookFeedback.msg")
+set(book_find_SERVICE_FILES "")

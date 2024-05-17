@@ -56,6 +56,18 @@ CMAKE_BINARY_DIR = /home/jetson/ROS/ros_ws/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -80,38 +92,16 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
 
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -124,16 +114,26 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
+# Special rule for the target test
+test/fast: test
 
-.PHONY : rebuild_cache/fast
+.PHONY : test/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,289 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/rule
-.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/rule
+learn_action/CMakeFiles/action_server.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/action_server.dir/rule
+.PHONY : learn_action/CMakeFiles/action_server.dir/rule
 
 # Convenience name for target.
-_learn_action_generate_messages_check_deps_DoDishesFeedback: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/rule
+action_server: learn_action/CMakeFiles/action_server.dir/rule
 
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesFeedback
+.PHONY : action_server
 
 # fast build rule for target.
-_learn_action_generate_messages_check_deps_DoDishesFeedback/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/build
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesFeedback/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/learn_action_generate_messages_py.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_generate_messages_py.dir/rule
-.PHONY : learn_action/CMakeFiles/learn_action_generate_messages_py.dir/rule
-
-# Convenience name for target.
-learn_action_generate_messages_py: learn_action/CMakeFiles/learn_action_generate_messages_py.dir/rule
-
-.PHONY : learn_action_generate_messages_py
-
-# fast build rule for target.
-learn_action_generate_messages_py/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_generate_messages_py.dir/build.make learn_action/CMakeFiles/learn_action_generate_messages_py.dir/build
-.PHONY : learn_action_generate_messages_py/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/rule
-.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/rule
-
-# Convenience name for target.
-_learn_action_generate_messages_check_deps_DoDishesActionGoal: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/rule
-
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionGoal
-
-# fast build rule for target.
-_learn_action_generate_messages_check_deps_DoDishesActionGoal/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/build
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionGoal/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/rule
-.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/rule
-
-# Convenience name for target.
-_learn_action_generate_messages_check_deps_DoDishesActionFeedback: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/rule
-
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionFeedback
-
-# fast build rule for target.
-_learn_action_generate_messages_check_deps_DoDishesActionFeedback/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/build
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionFeedback/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/rule
-.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/rule
-
-# Convenience name for target.
-_learn_action_generate_messages_check_deps_DoDishesGoal: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/rule
-
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesGoal
-
-# fast build rule for target.
-_learn_action_generate_messages_check_deps_DoDishesGoal/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/build
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesGoal/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/learn_action_geneus.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_geneus.dir/rule
-.PHONY : learn_action/CMakeFiles/learn_action_geneus.dir/rule
-
-# Convenience name for target.
-learn_action_geneus: learn_action/CMakeFiles/learn_action_geneus.dir/rule
-
-.PHONY : learn_action_geneus
-
-# fast build rule for target.
-learn_action_geneus/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_geneus.dir/build.make learn_action/CMakeFiles/learn_action_geneus.dir/build
-.PHONY : learn_action_geneus/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/learn_action_generate_messages.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_generate_messages.dir/rule
-.PHONY : learn_action/CMakeFiles/learn_action_generate_messages.dir/rule
-
-# Convenience name for target.
-learn_action_generate_messages: learn_action/CMakeFiles/learn_action_generate_messages.dir/rule
-
-.PHONY : learn_action_generate_messages
-
-# fast build rule for target.
-learn_action_generate_messages/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_generate_messages.dir/build.make learn_action/CMakeFiles/learn_action_generate_messages.dir/build
-.PHONY : learn_action_generate_messages/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_generate_messages_py.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_generate_messages_py.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_generate_messages_py.dir/rule
-
-# Convenience name for target.
-actionlib_generate_messages_py: learn_action/CMakeFiles/actionlib_generate_messages_py.dir/rule
-
-.PHONY : actionlib_generate_messages_py
-
-# fast build rule for target.
-actionlib_generate_messages_py/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_generate_messages_py.dir/build.make learn_action/CMakeFiles/actionlib_generate_messages_py.dir/build
-.PHONY : actionlib_generate_messages_py/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/_catkin_empty_exported_target.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_catkin_empty_exported_target.dir/rule
-.PHONY : learn_action/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-# Convenience name for target.
-_catkin_empty_exported_target: learn_action/CMakeFiles/_catkin_empty_exported_target.dir/rule
-
-.PHONY : _catkin_empty_exported_target
-
-# fast build rule for target.
-_catkin_empty_exported_target/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_catkin_empty_exported_target.dir/build.make learn_action/CMakeFiles/_catkin_empty_exported_target.dir/build
-.PHONY : _catkin_empty_exported_target/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/rule
-.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/rule
-
-# Convenience name for target.
-_learn_action_generate_messages_check_deps_DoDishesActionResult: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/rule
-
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionResult
-
-# fast build rule for target.
-_learn_action_generate_messages_check_deps_DoDishesActionResult/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/build
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionResult/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-actionlib_msgs_generate_messages_py: learn_action/CMakeFiles/actionlib_msgs_generate_messages_py.dir/rule
-
-.PHONY : actionlib_msgs_generate_messages_py
-
-# fast build rule for target.
-actionlib_msgs_generate_messages_py/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make learn_action/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
-.PHONY : actionlib_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-actionlib_msgs_generate_messages_lisp: learn_action/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : actionlib_msgs_generate_messages_lisp
-
-# fast build rule for target.
-actionlib_msgs_generate_messages_lisp/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make learn_action/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
-.PHONY : actionlib_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-actionlib_msgs_generate_messages_eus: learn_action/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/rule
-
-.PHONY : actionlib_msgs_generate_messages_eus
-
-# fast build rule for target.
-actionlib_msgs_generate_messages_eus/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make learn_action/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build
-.PHONY : actionlib_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_generate_messages_eus.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_generate_messages_eus.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-actionlib_generate_messages_eus: learn_action/CMakeFiles/actionlib_generate_messages_eus.dir/rule
-
-.PHONY : actionlib_generate_messages_eus
-
-# fast build rule for target.
-actionlib_generate_messages_eus/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_generate_messages_eus.dir/build.make learn_action/CMakeFiles/actionlib_generate_messages_eus.dir/build
-.PHONY : actionlib_generate_messages_eus/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/rule
-.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/rule
-
-# Convenience name for target.
-_learn_action_generate_messages_check_deps_DoDishesAction: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/rule
-
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesAction
-
-# fast build rule for target.
-_learn_action_generate_messages_check_deps_DoDishesAction/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/build
-.PHONY : _learn_action_generate_messages_check_deps_DoDishesAction/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/action_client.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/action_client.dir/rule
-.PHONY : learn_action/CMakeFiles/action_client.dir/rule
-
-# Convenience name for target.
-action_client: learn_action/CMakeFiles/action_client.dir/rule
-
-.PHONY : action_client
-
-# fast build rule for target.
-action_client/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/action_client.dir/build.make learn_action/CMakeFiles/action_client.dir/build
-.PHONY : action_client/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-actionlib_msgs_generate_messages_cpp: learn_action/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : actionlib_msgs_generate_messages_cpp
-
-# fast build rule for target.
-actionlib_msgs_generate_messages_cpp/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make learn_action/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
-.PHONY : actionlib_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-actionlib_msgs_generate_messages_nodejs: learn_action/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : actionlib_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-actionlib_msgs_generate_messages_nodejs/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make learn_action/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
-.PHONY : actionlib_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/learn_action_gennodejs.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_gennodejs.dir/rule
-.PHONY : learn_action/CMakeFiles/learn_action_gennodejs.dir/rule
-
-# Convenience name for target.
-learn_action_gennodejs: learn_action/CMakeFiles/learn_action_gennodejs.dir/rule
-
-.PHONY : learn_action_gennodejs
-
-# fast build rule for target.
-learn_action_gennodejs/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_gennodejs.dir/build.make learn_action/CMakeFiles/learn_action_gennodejs.dir/build
-.PHONY : learn_action_gennodejs/fast
+action_server/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/action_server.dir/build.make learn_action/CMakeFiles/action_server.dir/build
+.PHONY : action_server/fast
 
 # Convenience name for target.
 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesResult.dir/rule:
@@ -468,19 +198,154 @@ _learn_action_generate_messages_check_deps_DoDishesResult/fast:
 .PHONY : _learn_action_generate_messages_check_deps_DoDishesResult/fast
 
 # Convenience name for target.
-learn_action/CMakeFiles/actionlib_generate_messages_lisp.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
+learn_action/CMakeFiles/learn_action_generate_messages.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_generate_messages.dir/rule
+.PHONY : learn_action/CMakeFiles/learn_action_generate_messages.dir/rule
 
 # Convenience name for target.
-actionlib_generate_messages_lisp: learn_action/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
+learn_action_generate_messages: learn_action/CMakeFiles/learn_action_generate_messages.dir/rule
 
-.PHONY : actionlib_generate_messages_lisp
+.PHONY : learn_action_generate_messages
 
 # fast build rule for target.
-actionlib_generate_messages_lisp/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make learn_action/CMakeFiles/actionlib_generate_messages_lisp.dir/build
-.PHONY : actionlib_generate_messages_lisp/fast
+learn_action_generate_messages/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_generate_messages.dir/build.make learn_action/CMakeFiles/learn_action_generate_messages.dir/build
+.PHONY : learn_action_generate_messages/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/learn_action_generate_messages_py.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_generate_messages_py.dir/rule
+.PHONY : learn_action/CMakeFiles/learn_action_generate_messages_py.dir/rule
+
+# Convenience name for target.
+learn_action_generate_messages_py: learn_action/CMakeFiles/learn_action_generate_messages_py.dir/rule
+
+.PHONY : learn_action_generate_messages_py
+
+# fast build rule for target.
+learn_action_generate_messages_py/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_generate_messages_py.dir/build.make learn_action/CMakeFiles/learn_action_generate_messages_py.dir/build
+.PHONY : learn_action_generate_messages_py/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/rule
+.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/rule
+
+# Convenience name for target.
+_learn_action_generate_messages_check_deps_DoDishesFeedback: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/rule
+
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesFeedback
+
+# fast build rule for target.
+_learn_action_generate_messages_check_deps_DoDishesFeedback/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesFeedback.dir/build
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesFeedback/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/rule
+.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/rule
+
+# Convenience name for target.
+_learn_action_generate_messages_check_deps_DoDishesGoal: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/rule
+
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesGoal
+
+# fast build rule for target.
+_learn_action_generate_messages_check_deps_DoDishesGoal/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesGoal.dir/build
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesGoal/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/rule
+.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/rule
+
+# Convenience name for target.
+_learn_action_generate_messages_check_deps_DoDishesActionFeedback: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/rule
+
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionFeedback
+
+# fast build rule for target.
+_learn_action_generate_messages_check_deps_DoDishesActionFeedback/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionFeedback.dir/build
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionFeedback/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/learn_action_geneus.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_geneus.dir/rule
+.PHONY : learn_action/CMakeFiles/learn_action_geneus.dir/rule
+
+# Convenience name for target.
+learn_action_geneus: learn_action/CMakeFiles/learn_action_geneus.dir/rule
+
+.PHONY : learn_action_geneus
+
+# fast build rule for target.
+learn_action_geneus/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_geneus.dir/build.make learn_action/CMakeFiles/learn_action_geneus.dir/build
+.PHONY : learn_action_geneus/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/rule
+.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/rule
+
+# Convenience name for target.
+_learn_action_generate_messages_check_deps_DoDishesActionGoal: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/rule
+
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionGoal
+
+# fast build rule for target.
+_learn_action_generate_messages_check_deps_DoDishesActionGoal/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionGoal.dir/build
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionGoal/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/rule
+.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/rule
+
+# Convenience name for target.
+_learn_action_generate_messages_check_deps_DoDishesActionResult: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/rule
+
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionResult
+
+# fast build rule for target.
+_learn_action_generate_messages_check_deps_DoDishesActionResult/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesActionResult.dir/build
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesActionResult/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/action_client.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/action_client.dir/rule
+.PHONY : learn_action/CMakeFiles/action_client.dir/rule
+
+# Convenience name for target.
+action_client: learn_action/CMakeFiles/action_client.dir/rule
+
+.PHONY : action_client
+
+# fast build rule for target.
+action_client/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/action_client.dir/build.make learn_action/CMakeFiles/action_client.dir/build
+.PHONY : action_client/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/rule
+.PHONY : learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/rule
+
+# Convenience name for target.
+_learn_action_generate_messages_check_deps_DoDishesAction: learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/rule
+
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesAction
+
+# fast build rule for target.
+_learn_action_generate_messages_check_deps_DoDishesAction/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/build.make learn_action/CMakeFiles/_learn_action_generate_messages_check_deps_DoDishesAction.dir/build
+.PHONY : _learn_action_generate_messages_check_deps_DoDishesAction/fast
 
 # Convenience name for target.
 learn_action/CMakeFiles/learn_action_genlisp.dir/rule:
@@ -498,6 +363,21 @@ learn_action_genlisp/fast:
 .PHONY : learn_action_genlisp/fast
 
 # Convenience name for target.
+learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/rule
+.PHONY : learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+learn_action_generate_messages_cpp: learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/rule
+
+.PHONY : learn_action_generate_messages_cpp
+
+# fast build rule for target.
+learn_action_generate_messages_cpp/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/build.make learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/build
+.PHONY : learn_action_generate_messages_cpp/fast
+
+# Convenience name for target.
 learn_action/CMakeFiles/learn_action_gencpp.dir/rule:
 	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_gencpp.dir/rule
 .PHONY : learn_action/CMakeFiles/learn_action_gencpp.dir/rule
@@ -511,6 +391,21 @@ learn_action_gencpp: learn_action/CMakeFiles/learn_action_gencpp.dir/rule
 learn_action_gencpp/fast:
 	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_gencpp.dir/build.make learn_action/CMakeFiles/learn_action_gencpp.dir/build
 .PHONY : learn_action_gencpp/fast
+
+# Convenience name for target.
+learn_action/CMakeFiles/learn_action_gennodejs.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_gennodejs.dir/rule
+.PHONY : learn_action/CMakeFiles/learn_action_gennodejs.dir/rule
+
+# Convenience name for target.
+learn_action_gennodejs: learn_action/CMakeFiles/learn_action_gennodejs.dir/rule
+
+.PHONY : learn_action_gennodejs
+
+# fast build rule for target.
+learn_action_gennodejs/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_gennodejs.dir/build.make learn_action/CMakeFiles/learn_action_gennodejs.dir/build
+.PHONY : learn_action_gennodejs/fast
 
 # Convenience name for target.
 learn_action/CMakeFiles/learn_action_generate_messages_eus.dir/rule:
@@ -543,21 +438,6 @@ learn_action_generate_messages_lisp/fast:
 .PHONY : learn_action_generate_messages_lisp/fast
 
 # Convenience name for target.
-learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/rule
-.PHONY : learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-learn_action_generate_messages_nodejs: learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/rule
-
-.PHONY : learn_action_generate_messages_nodejs
-
-# fast build rule for target.
-learn_action_generate_messages_nodejs/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/build.make learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/build
-.PHONY : learn_action_generate_messages_nodejs/fast
-
-# Convenience name for target.
 learn_action/CMakeFiles/learn_action_genpy.dir/rule:
 	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_genpy.dir/rule
 .PHONY : learn_action/CMakeFiles/learn_action_genpy.dir/rule
@@ -573,64 +453,19 @@ learn_action_genpy/fast:
 .PHONY : learn_action_genpy/fast
 
 # Convenience name for target.
-learn_action/CMakeFiles/action_server.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/action_server.dir/rule
-.PHONY : learn_action/CMakeFiles/action_server.dir/rule
+learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/rule:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/rule
+.PHONY : learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-action_server: learn_action/CMakeFiles/action_server.dir/rule
+learn_action_generate_messages_nodejs: learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/rule
 
-.PHONY : action_server
+.PHONY : learn_action_generate_messages_nodejs
 
 # fast build rule for target.
-action_server/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/action_server.dir/build.make learn_action/CMakeFiles/action_server.dir/build
-.PHONY : action_server/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-actionlib_generate_messages_nodejs: learn_action/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
-
-.PHONY : actionlib_generate_messages_nodejs
-
-# fast build rule for target.
-actionlib_generate_messages_nodejs/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make learn_action/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
-.PHONY : actionlib_generate_messages_nodejs/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/rule
-.PHONY : learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-learn_action_generate_messages_cpp: learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/rule
-
-.PHONY : learn_action_generate_messages_cpp
-
-# fast build rule for target.
-learn_action_generate_messages_cpp/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/build.make learn_action/CMakeFiles/learn_action_generate_messages_cpp.dir/build
-.PHONY : learn_action_generate_messages_cpp/fast
-
-# Convenience name for target.
-learn_action/CMakeFiles/actionlib_generate_messages_cpp.dir/rule:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f CMakeFiles/Makefile2 learn_action/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
-.PHONY : learn_action/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-actionlib_generate_messages_cpp: learn_action/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
-
-.PHONY : actionlib_generate_messages_cpp
-
-# fast build rule for target.
-actionlib_generate_messages_cpp/fast:
-	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make learn_action/CMakeFiles/actionlib_generate_messages_cpp.dir/build
-.PHONY : actionlib_generate_messages_cpp/fast
+learn_action_generate_messages_nodejs/fast:
+	cd /home/jetson/ROS/ros_ws/build && $(MAKE) -f learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/build.make learn_action/CMakeFiles/learn_action_generate_messages_nodejs.dir/build
+.PHONY : learn_action_generate_messages_nodejs/fast
 
 src/action_client.o: src/action_client.cpp.o
 
@@ -692,44 +527,33 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... _learn_action_generate_messages_check_deps_DoDishesFeedback"
-	@echo "... learn_action_generate_messages_py"
-	@echo "... _learn_action_generate_messages_check_deps_DoDishesActionGoal"
-	@echo "... _learn_action_generate_messages_check_deps_DoDishesActionFeedback"
-	@echo "... _learn_action_generate_messages_check_deps_DoDishesGoal"
-	@echo "... learn_action_geneus"
-	@echo "... learn_action_generate_messages"
-	@echo "... actionlib_generate_messages_py"
-	@echo "... _catkin_empty_exported_target"
-	@echo "... _learn_action_generate_messages_check_deps_DoDishesActionResult"
-	@echo "... actionlib_msgs_generate_messages_py"
-	@echo "... actionlib_msgs_generate_messages_lisp"
-	@echo "... actionlib_msgs_generate_messages_eus"
-	@echo "... actionlib_generate_messages_eus"
-	@echo "... install/local"
-	@echo "... _learn_action_generate_messages_check_deps_DoDishesAction"
-	@echo "... action_client"
-	@echo "... actionlib_msgs_generate_messages_cpp"
-	@echo "... install"
-	@echo "... actionlib_msgs_generate_messages_nodejs"
-	@echo "... learn_action_gennodejs"
-	@echo "... _learn_action_generate_messages_check_deps_DoDishesResult"
-	@echo "... actionlib_generate_messages_lisp"
-	@echo "... learn_action_genlisp"
 	@echo "... install/strip"
-	@echo "... learn_action_gencpp"
-	@echo "... learn_action_generate_messages_eus"
-	@echo "... list_install_components"
-	@echo "... learn_action_generate_messages_lisp"
-	@echo "... learn_action_generate_messages_nodejs"
-	@echo "... learn_action_genpy"
-	@echo "... action_server"
-	@echo "... actionlib_generate_messages_nodejs"
-	@echo "... learn_action_generate_messages_cpp"
-	@echo "... test"
-	@echo "... edit_cache"
-	@echo "... actionlib_generate_messages_cpp"
+	@echo "... install/local"
+	@echo "... install"
 	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... test"
+	@echo "... action_server"
+	@echo "... _learn_action_generate_messages_check_deps_DoDishesResult"
+	@echo "... learn_action_generate_messages"
+	@echo "... learn_action_generate_messages_py"
+	@echo "... _learn_action_generate_messages_check_deps_DoDishesFeedback"
+	@echo "... _learn_action_generate_messages_check_deps_DoDishesGoal"
+	@echo "... _learn_action_generate_messages_check_deps_DoDishesActionFeedback"
+	@echo "... learn_action_geneus"
+	@echo "... _learn_action_generate_messages_check_deps_DoDishesActionGoal"
+	@echo "... _learn_action_generate_messages_check_deps_DoDishesActionResult"
+	@echo "... action_client"
+	@echo "... _learn_action_generate_messages_check_deps_DoDishesAction"
+	@echo "... learn_action_genlisp"
+	@echo "... learn_action_generate_messages_cpp"
+	@echo "... learn_action_gencpp"
+	@echo "... learn_action_gennodejs"
+	@echo "... list_install_components"
+	@echo "... learn_action_generate_messages_eus"
+	@echo "... learn_action_generate_messages_lisp"
+	@echo "... learn_action_genpy"
+	@echo "... learn_action_generate_messages_nodejs"
 	@echo "... src/action_client.o"
 	@echo "... src/action_client.i"
 	@echo "... src/action_client.s"

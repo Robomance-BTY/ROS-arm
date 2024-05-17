@@ -296,6 +296,18 @@ arm_movement_BINARY_DIR:STATIC=/home/jetson/ROS/ros_ws/build/arm_movement
 //Value Computed by CMake
 arm_movement_SOURCE_DIR:STATIC=/home/jetson/ROS/ros_ws/src/arm_movement
 
+//Value Computed by CMake
+book_find_BINARY_DIR:STATIC=/home/jetson/ROS/ros_ws/build/book_find
+
+//Value Computed by CMake
+book_find_SOURCE_DIR:STATIC=/home/jetson/ROS/ros_ws/src/book_find
+
+//Value Computed by CMake
+camera_BINARY_DIR:STATIC=/home/jetson/ROS/ros_ws/build/camera
+
+//Value Computed by CMake
+camera_SOURCE_DIR:STATIC=/home/jetson/ROS/ros_ws/src/camera
+
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/melodic/share/catkin/cmake
 
@@ -581,7 +593,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=10
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

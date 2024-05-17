@@ -7,6 +7,7 @@
 subdirs("gtest")
 subdirs("arm_movement")
 subdirs("learn_launch")
+subdirs("book_find")
 subdirs("learn_action")
 subdirs("learn_service")
 subdirs("learn_tf")

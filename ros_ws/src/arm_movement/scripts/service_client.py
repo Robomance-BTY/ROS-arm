@@ -38,7 +38,7 @@ def move_linear_client(command):
     except rospy.ServiceException as e:
         print("Service call failed: %s" % e)
 
-def callback(data):
+def draw_book(data):
     stretch_arm(Arm)
     success, message = move_linear_client("drawing_book_forward")
     if success:
@@ -50,16 +50,34 @@ def callback(data):
     else:
         rospy.logwarn("Service call failed. %s", message)
 
-def order_callback(data):
-    callback(data)
-    move_linear_client(data)
+def store_book(storage_number):
+    move_linear_client(storage_number)
+    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 128, 1000)
+    time.sleep(1)
+    Arm.Arm_serial_servo_write6(-3,88 , 11, 3, 81, 128, 1000)
+    time.sleep(1)
+    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 128, 1000)
+    time.sleep(1)
+    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 90, 1000)
+    time.sleep(1)
+    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 128, 1000)
+    time.sleep(1)
+    Arm.Arm_serial_servo_write6(95, 180, -5, 0, 0, 90, 1000)
+    time.sleep(1)
+    move_linear_client("reset")
+
+def arm_order_callback(order):
+    rospy.loginfo("receivedata %s", order)
+    draw_book(order)
+    store_book(order.data)
+    
 
 def topic_listener():
-    rospy.Subscriber('order', String, order_callback)
+    rospy.Subscriber('order', String, arm_order_callback)
 
 if __name__ == "__main__":
     try:
-        rospy.init_node('move_book_client')
+        rospy.init_node('robot_arm')
         topic_listener()
         rospy.spin()
         
