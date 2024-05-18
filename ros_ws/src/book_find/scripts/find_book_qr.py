@@ -19,13 +19,19 @@ class BookServer:
         time.sleep(2.0)
         self.server = actionlib.SimpleActionServer('book_action', FindBookAction, self.execute_callback, False)
         self.server.start()
+        
+    def publish_order(self):
+        pub = rospy.Publisher('order', String, queue_size=10)
+        order_msg = rospy.get_param("/service_server/book_storage")
+        pub.publish(order_msg)
+
 
     def execute_callback(self, goal):
         rospy.loginfo(f"bookname is {goal.book_name}, book storage is {goal.book_storage}")
         rospy.set_param('/service_server/book_storage', goal.book_storage)
         feedback = FindBookFeedback()
         detect_book = False
-
+        distance_count = 0
         while not rospy.is_shutdown():
             frame = self.vs.read()
             frame = imutils.resize(frame, width=600)
@@ -51,21 +57,20 @@ class BookServer:
 
                     # 3번째 선과 QR 코드 중심점 사이의 거리 계산
                     distance_to_third_line = (barcode_center_x - third_line_x)
-                    distance_count = 0
-                    while(distance_count < 20):
-                        if distance_to_third_line <= 10 and distance_to_third_line >= -10:  # QR 코드가 3번째 선 위에 있으면
-                            feedback.distance = distance_to_third_line  # 3번째 선까지의 거리를 feedback으로 설정
-                            self.server.publish_feedback(feedback)
-                            distance += 1
-                            if distance_count >20:
-                                result = FindBookResult()
-                                result.arrived = True
-                                self.server.set_succeeded(result)
-                                pub = rospy.Publisher('/order', String, queue_size=6)
-                                order_msg = rospy.get_param("/service_server/book_storage")
-                                pub.publish(order_msg)
-                                return  
-                        else:
+
+                    if distance_to_third_line <= -71 and distance_to_third_line >= -79:  # QR 코드가 3번째 선 위에 있으면
+                        feedback.distance = distance_to_third_line  # 3번째 선까지의 거리를 feedback으로 설정
+                        self.server.publish_feedback(feedback)
+                        distance_count += 1
+                        # if distance_count >15:
+                        rospy.loginfo("HERE1")
+                        time.sleep(3)
+                        self.publish_order()
+                        result = FindBookResult()
+                        result.arrived = True 
+                        self.server.set_succeeded(result)
+                        return  
+                    else:
                             distance_count = 0
                             feedback.distance = distance_to_third_line  # 3번째 선까지의 거리를 feedback으로 설정
                             self.server.publish_feedback(feedback)
@@ -87,6 +92,6 @@ class BookServer:
         
 
 if __name__ == '__main__':
-    rospy.init_node('find_book_action_server_node')
+    rospy.init_node('find_book_action_server')
     server = BookServer()
     rospy.spin()

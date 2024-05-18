@@ -9,15 +9,15 @@ from arm_movement.srv import MoveLinear
 Arm = Arm_Device()
 
 def stretch_arm(arm):
-    arm.Arm_serial_servo_write6(95, 50, 47, 78, 90, 90, 800)
+    Arm.Arm_serial_servo_write6(95,55 , 70, 58, 90, 60, 800)
     time.sleep(1)
 
 def hold_book(arm):
-    arm.Arm_serial_servo_write6(95, 50, 47, 78, 90, 180, 800)
+    arm.Arm_serial_servo_write6(95,55 , 70, 58, 90, 170, 800)
     time.sleep(1)
 
 def withdraw(arm):
-    arm.Arm_serial_servo_write6(95, 180, 0, 0, 90, 180, 800)
+    arm.Arm_serial_servo_write6(95, 180, 0, 0, 90, 170, 800)
     time.sleep(1)
 
 def linear_publisher():
@@ -52,17 +52,17 @@ def draw_book(data):
 
 def store_book(storage_number):
     move_linear_client(storage_number)
-    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 180, 1000)
+    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 170, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,88 , 11, 3, 81, 180, 1000)
+    Arm.Arm_serial_servo_write6(-3,88 , 11, 3, 81, 170, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 180, 1000)
+    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 170, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 90, 1000)
+    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 70, 1000)
     time.sleep(1)
     Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 70, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(95, 180, -5, 0, 0, 70, 1000)
+    Arm.Arm_serial_servo_write6(95, 180, -5, 0, 0, 180, 1000)
     time.sleep(1)
     move_linear_client("reset")
 
