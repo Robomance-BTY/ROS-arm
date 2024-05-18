@@ -52,17 +52,17 @@ def draw_book(data):
 
 def store_book(storage_number):
     move_linear_client(storage_number)
-    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 128, 1000)
+    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 180, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,88 , 11, 3, 81, 128, 1000)
+    Arm.Arm_serial_servo_write6(-3,88 , 11, 3, 81, 180, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 128, 1000)
+    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 180, 1000)
     time.sleep(1)
     Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 90, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 128, 1000)
+    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 70, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(95, 180, -5, 0, 0, 90, 1000)
+    Arm.Arm_serial_servo_write6(95, 180, -5, 0, 0, 70, 1000)
     time.sleep(1)
     move_linear_client("reset")
 
