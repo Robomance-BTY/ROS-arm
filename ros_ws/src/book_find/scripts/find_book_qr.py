@@ -21,7 +21,6 @@ class BookServer:
         self.server.start()
         
     def publish_order(self):
-        pub = rospy.Publisher('order', String, queue_size=10)
         order_msg = rospy.get_param("/service_server/book_storage")
         pub.publish(order_msg)
 
@@ -63,7 +62,6 @@ class BookServer:
                         self.server.publish_feedback(feedback)
                         distance_count += 1
                         # if distance_count >15:
-                        rospy.loginfo("HERE1")
                         time.sleep(3)
                         self.publish_order()
                         result = FindBookResult()
@@ -93,5 +91,6 @@ class BookServer:
 
 if __name__ == '__main__':
     rospy.init_node('find_book_action_server')
+    pub = rospy.Publisher('order', String, queue_size=10)
     server = BookServer()
     rospy.spin()

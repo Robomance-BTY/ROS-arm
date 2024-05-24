@@ -5,24 +5,31 @@ import time
 from std_msgs.msg import String
 from Arm_Lib import Arm_Device
 from arm_movement.srv import MoveLinear
+from sensor_msgs.msg import JointState
 
-Arm = Arm_Device()
+def dofbot_move(dofbot_position):
+    joint_names = ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'gripper']
+    joint_state = JointState()
 
-def stretch_arm(arm):
-    Arm.Arm_serial_servo_write6(95,55 , 70, 58, 90, 60, 800)
-    time.sleep(1)
+    joint_states = {
+        "stratch_arm" : [0.04, 0.66, -1.27, -0.91 , 0, -0.8],
+        "hold_book" : [0.04, 0.66, -1.27, -0.91 , 0, 1.2],
+        "withdraw" : [0.04, 1.55, -1.57, -1.57, 0, 1.2],
+        "store_book_start" : [-1.53, 0., -1.42, -1.57, 0, 1.2],
+        "store_book_end" : [-1.53, -0.36, -1.29, -1.57, 0, 1.2],
+        "put_book" : [-1.53, -0.36, -1.29, -1.57, 0, -0.8],
+        "reset" : [0.04, 1.55, -1.57, -1.57, -1.57, 1.4]
+    }
 
-def hold_book(arm):
-    arm.Arm_serial_servo_write6(95,55 , 70, 58, 90, 170, 800)
-    time.sleep(1)
+    joint_state.name = joint_names
+    joint_state.position = joint_states[dofbot_position]
+    dofbot_joint_pub.publish(joint_state)
+    time.sleep(2)
 
-def withdraw(arm):
-    arm.Arm_serial_servo_write6(95, 180, 0, 0, 90, 170, 800)
-    time.sleep(1)
+    return
+
 
 def linear_publisher():
-    rospy.init_node('linear_publisher', anonymous=True)
-    pub = rospy.Publisher('/move', String, queue_size=6)
     rate = rospy.Rate(1)  # 1 message per second
     while not rospy.is_shutdown():
         pub.publish("go")  # Publish the message
@@ -38,38 +45,28 @@ def move_linear_client(command):
     except rospy.ServiceException as e:
         print("Service call failed: %s" % e)
 
-def draw_book(data):
-    stretch_arm(Arm)
+def draw_book():
+    dofbot_move("stratch_arm")
     success, message = move_linear_client("drawing_book_forward")
     if success:
         rospy.loginfo("Service call was successful. %s", message)
-        hold_book(Arm)
+        dofbot_move("hold_book")
         success, message = move_linear_client("drawing_book_backward")
         if success:
-            withdraw(Arm)     
+            dofbot_move("withdraw")   
     else:
         rospy.logwarn("Service call failed. %s", message)
 
-def store_book(storage_number):
-    move_linear_client(storage_number)
-    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 170, 1000)
-    time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,88 , 11, 3, 81, 170, 1000)
-    time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 170, 1000)
-    time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,76 , 11, 9, 81, 70, 1000)
-    time.sleep(1)
-    Arm.Arm_serial_servo_write6(-3,110 , 56, 7, 81, 70, 1000)
-    time.sleep(1)
-    Arm.Arm_serial_servo_write6(95, 180, -5, 0, 0, 180, 1000)
-    time.sleep(1)
-    move_linear_client("reset")
-
 def arm_order_callback(order):
     rospy.loginfo("receivedata %s", order)
-    draw_book(order)
-    store_book(order.data)
+    draw_book()
+    move_linear_client(order.data)
+    dofbot_move("store_book_start")
+    dofbot_move("store_book_end")
+    dofbot_move("put_book")
+    dofbot_move("reset")
+    move_linear_client("reset")
+    
     
 
 def topic_listener():
@@ -78,11 +75,12 @@ def topic_listener():
 if __name__ == "__main__":
     try:
         rospy.init_node('robot_arm')
+        dofbot_joint_pub = rospy.Publisher('/joint_states', JointState, queue_size=6)
+        pub = rospy.Publisher('/move', String, queue_size=6)
+
         topic_listener()
         rospy.spin()
         
     except rospy.ROSInterruptException:
         pass
-    finally:
-        del Arm  # Release DOFBOT object
     

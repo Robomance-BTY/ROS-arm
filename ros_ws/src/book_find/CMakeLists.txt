@@ -7,6 +7,13 @@ project(book_find)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
+
+# Find OpenCV
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 find_package(catkin REQUIRED COMPONENTS
   actionlib
   actionlib_msgs
@@ -14,6 +21,8 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
 )
+
+find_package(ZBar REQUIRED)
 
 add_action_files(
   DIRECTORY 
@@ -26,6 +35,24 @@ generate_messages(
   DEPENDENCIES
   actionlib_msgs
 )
+
+add_executable(book_find_node
+  src/cv_V_c++.cpp
+)
+
+target_link_libraries(book_find_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${ZBar_LIBRARIES}
+
+)
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+  ${ZBar_INCLUDE_DIRS}
+)
+
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
