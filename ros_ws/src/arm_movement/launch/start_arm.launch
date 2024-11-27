@@ -4,5 +4,6 @@
         <param name="book_storage" value="$(arg book_storage)"/>    
     </node>
     <node pkg="arm_movement" type="dofbot_move.py" name="dofbot"/>
-    <node pkg="book_find" type="find_book_qr.py" name="find_book_action_server"/>
+    <!-- <node pkg="book_find" type="find_book_qr.py" name="find_book_action_server"/> -->
+    <node pkg="book_find" type="book_find_node" name="find_book_action_server"/>
 </launch>

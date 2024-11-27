@@ -12,12 +12,13 @@ def dofbot_move(dofbot_position):
     joint_state = JointState()
 
     joint_states = {
-        "stratch_arm" : [0.04, 0.66, -1.27, -0.91 , 0, -0.8],
-        "hold_book" : [0.04, 0.66, -1.27, -0.91 , 0, 1.2],
-        "withdraw" : [0.04, 1.55, -1.57, -1.57, 0, 1.2],
-        "store_book_start" : [-1.53, 0., -1.42, -1.57, 0, 1.2],
-        "store_book_end" : [-1.53, -0.36, -1.29, -1.57, 0, 1.2],
-        "put_book" : [-1.53, -0.36, -1.29, -1.57, 0, -0.8],
+        "stratch_arm" : [0.00, -0.83, -0.40, -0.3, 0 , -0.8],
+        "hold_book" :[0.00, -0.83, -0.40, -0.3, 0 , 0.8],
+        "withdraw" : [0.04, 1.55, -1.57, -1.57, 0, 0.8],
+        "store_ready" : [-1.53, 1.55, -1.57, -1.57, 0, 0.8],
+        "store_book_end" : [-1.57, -0.51, -0.87, -1.57, 0, 0.8],
+        "put_book" : [-1.57, -0.51, -0.87, -1.57, 0, -0.8],
+        "reset_ready" : [-1.53, 1.55, -1.57, -1.57, 0, 0.8],
         "reset" : [0.04, 1.55, -1.57, -1.57, -1.57, 1.4]
     }
 
@@ -61,11 +62,15 @@ def arm_order_callback(order):
     rospy.loginfo("receivedata %s", order)
     draw_book()
     move_linear_client(order.data)
-    dofbot_move("store_book_start")
+    dofbot_move("store_ready")
+    #dofbot_move("store_book_start")
     dofbot_move("store_book_end")
     dofbot_move("put_book")
+    dofbot_move("reset_ready")
     dofbot_move("reset")
     move_linear_client("reset")
+    time.sleep(2)
+    draw_book_status.publish('end')
     
     
 
@@ -77,6 +82,7 @@ if __name__ == "__main__":
         rospy.init_node('robot_arm')
         dofbot_joint_pub = rospy.Publisher('/joint_states', JointState, queue_size=6)
         pub = rospy.Publisher('/move', String, queue_size=6)
+        draw_book_status = rospy.Publisher('/robot_arm_status', String, queue_size=10)
 
         topic_listener()
         rospy.spin()

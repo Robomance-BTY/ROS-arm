@@ -13,7 +13,7 @@ def book_client():
     client = actionlib.SimpleActionClient('book_action', FindBookAction)
     client.wait_for_server()
 
-    goal = FindBookGoal(book_name='book2', book_storage="book_storage1")
+    goal = FindBookGoal(book_name='book1', book_storage="book_storage2")
     
 
     client.send_goal(goal, feedback_cb=feedback_cb)

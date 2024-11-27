@@ -77,7 +77,7 @@ class BookServer:
                 self.server.set_preempted()
                 return 
 
-            #cv2.imshow("Barcode Scanner", frame)
+            cv2.imshow("Barcode Scanner", frame)
             key = cv2.waitKey(1) & 0xFF
 
             if key == ord("q"):

@@ -71,19 +71,14 @@ public:
                     int third_line_x = 3 * section_width;
                     int distance_to_third_line = barcode_center_x - third_line_x;
 
-                    if (distance_to_third_line <= -71 && distance_to_third_line >= -79) {
+                    if (distance_to_third_line <= -28 && distance_to_third_line >= -33) {
                         feedback_.distance = distance_to_third_line;
                         as_.publishFeedback(feedback_);
-                        distance_count += 1;
-
-                        if (distance_count > 15) {
-                            ROS_INFO("HERE1");
-                            ros::Duration(3.0).sleep();
-                            publishOrder();
-                            result_.arrived = true;
-                            as_.setSucceeded(result_);
-                            return;
-                        }
+                        ros::Duration(3.0).sleep();
+                        publishOrder();
+                        result_.arrived = true;
+                        as_.setSucceeded(result_);
+                        return;
                     } else {
                         distance_count = 0;
                         feedback_.distance = distance_to_third_line;
@@ -97,10 +92,13 @@ public:
                 return;
             }
 
+            cv::imshow("Barcode Scanner", frame); // Display the frame
             if (cv::waitKey(1) == 'q') {
                 break;
             }
         }
+
+        cv::destroyAllWindows();
     }
 
     void publishOrder() {
@@ -116,7 +114,11 @@ public:
         cv::Mat gray;
         cv::cvtColor(frame, gray, cv::COLOR_BGR2GRAY);
 
-        zbar::Image image(frame.cols, frame.rows, "Y800", gray.data, frame.cols * frame.rows);
+        // Reduce brightness
+        cv::Mat reduced_brightness;
+        cv::convertScaleAbs(gray, reduced_brightness, 0.5, 0); // Reduce brightness by half
+
+        zbar::Image image(frame.cols, frame.rows, "Y800", reduced_brightness.data, frame.cols * frame.rows);
         scanner.scan(image);
 
         std::vector<zbar::Symbol> symbols;

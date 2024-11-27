@@ -11,7 +11,7 @@ def main():
 
     Arm.Arm_serial_servo_write6(95, 180, -5, 0, 0, 90, 1000)
     time.sleep(1)
-    Arm.Arm_serial_servo_write6(95, 180, -5, 0, 0, 180, 1000)
+    Arm.Arm_serial_servo_write6(95, 180, -5 , 0, 0, 180, 1000)
     time.sleep(1)
     
     
